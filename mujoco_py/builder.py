@@ -267,7 +267,7 @@ class LinuxGPUExtensionBuilder(MujocoExtensionBuilder):
 
         self.extension.sources.append(self.CYMJ_DIR_PATH + "/gl/eglshim.c")
         self.extension.include_dirs.append(self.CYMJ_DIR_PATH + '/vendor/egl')
-        self.extension.libraries.extend(['glewegl'])
+        self.extension.libraries.extend(['GL', 'glew', 'glfw'])
         self.extension.runtime_library_dirs = [join(mjpro_path, 'bin')]
 
     def _build_impl(self):
@@ -276,6 +276,8 @@ class LinuxGPUExtensionBuilder(MujocoExtensionBuilder):
         fix_shared_library(so_file_path, 'libEGL.so', 'libEGL.so.1')
         fix_shared_library(so_file_path, 'libmujoco150.so', 'libmujoco150.so')
         fix_shared_library(so_file_path, 'libglewegl.so', 'libglewegl.so')
+        fix_shared_library(so_file_path, 'libglew.so', 'libglew.so')
+        fix_shared_library(so_file_path, 'libglfw.so', 'libglfw.so.3')
         return so_file_path
 
 
